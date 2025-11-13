@@ -40,9 +40,13 @@ bebas laah user dan passwordnya, asal inget wkwk
 
 ### 1.2.1 Settings Panel OLS
 setelah berhasil masuk, gaskeun kita setting setting, apa aja tuh ? nihh (btw, tiap selesai setting jangan lupa save uy):
-### 1) Ngatur versi PHP dulu geys.
-##### a. Di panel klik Server Configuration terus External App
-##### b. Tambah baru dengan cara Add terus pilih yang LiteSpeed SAPI App, terus next
+
+***1) Ngatur versi PHP dulu geys.***
+
+a. Di panel klik Server Configuration terus External App
+
+b. Tambah baru dengan cara Add terus pilih yang LiteSpeed SAPI App, terus next
+
 ```
 Settingnya : 
 Name: lsphp84
@@ -56,24 +60,32 @@ Command: /usr/local/lsws/lsphp84/bin/lsphp
 Instances: 1 (default)
 ```
 
-### 2) Ngatur Script Handler
-##### a. Server Configuration → Script Handler
-##### b. Edit handler lsphp atau buat baru:
+***2) Ngatur Script Handler***
+
+a. Server Configuration → Script Handler
+
+b. Edit handler lsphp atau buat baru:
+
 ```
 Suffixes: php
 Handler Type: LiteSpeed SAPI
 Handler Name: lsphp84
 ```
-### 3) Ubah port http (yaitu 80) karena defaultnya kan 8088
-##### a. Buka menu listeners, pilih yang Default terus edit
-##### b. Terus tinggal ganti aja deh portnya jadi 80
+***3) Ubah port http (yaitu 80) karena defaultnya kan 8088***
 
-### 4) Ubah supaya web bisa baca index.php 
-##### a. Buka Virtual Host, Example terus edit
-##### b. Cari bagian index file, terus tambahin ```index.php```, ```index.html``` (biar index.php dicari dahulu baru index.html)
+a. Buka menu listeners, pilih yang Default terus edit
 
-### 5) Buat Self-Signed SSL 
-##### _nah khusus ini, kita buat dulu di ssh (cmd), tapii ada harus masuk pake root dulu, jangan khawatir ikuti saja codenya_
+b. Terus tinggal ganti aja deh portnya jadi 80
+
+***4) Ubah supaya web bisa baca index.php***
+
+a. Buka Virtual Host, Example terus edit
+
+b. Cari bagian index file, terus tambahin ```index.php```, ```index.html``` (biar index.php dicari dahulu baru index.html)
+
+***5) Buat Self-Signed SSL***
+
+_nah khusus ini, kita buat dulu di ssh (cmd), tapii ada harus masuk pake root dulu, jangan khawatir ikuti saja codenya_
 
 ```shell
 sudo mkdir /etc/ssl/private
@@ -85,10 +97,11 @@ nextnya :
 ```shell
 openssl req -x509 -newkey rsa:2048 -nodes -keyout self.key -out self.crt -days 365
 ```
-##### _Isi asal aja sih. terus nanti bakal punya dua file self.key dan self.crt yang tersimpan di_ ```/etc/ssl/private```
+_Isi asal aja sih. terus nanti bakal punya dua file self.key dan self.crt yang tersimpan di_ ```/etc/ssl/private```
 
-##### a. Sekarang ke panel OLS lagi, terus ke Listeners lalu add
-##### b. Listener Name: SSL
+a. Sekarang ke panel OLS lagi, terus ke Listeners lalu add
+
+b. Listener Name: SSL
 ```
 IP Address: IPV4ANY
 Port: 443
@@ -99,7 +112,7 @@ di bagian Virtual host mappings:
 Virtual Host: Example (atau nama virtual host kamu)
 Domains: * (artinya semua domain/IP)
 ```
-##### c. Klik Tab SSL, isi pake dua file yang tadi :
+c. Klik Tab SSL, isi pake dua file yang tadi :
 ```
 Private Key File: /etc/ssl/private/self.key
 Certificate File: /etc/ssl/private/self.crt
@@ -133,8 +146,8 @@ yups semudah itu bwahaha
 > 4. Gak jago buat reverse proxy kayak Nginx.
 > 5. Kalau mau fitur canggih, harus bayar (versi Enterprise).
 
-```sumber : GROK```
+```sumber : GROK :D```
 
-## 3. Cara membuat projek html ini dan cara upload ke servernya
+## 3. Cara membuat projek html dan cara upload ke servernya
 
 berlanjut..
