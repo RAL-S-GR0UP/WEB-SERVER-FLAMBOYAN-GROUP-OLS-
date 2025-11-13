@@ -6,8 +6,7 @@
 ### 1.1 Akses Server
 Jadi cara akses servernya sangat mudah, hanya perlu *cmd* bawaan windows, dengan cara berikut :
 
-ssh username@ip
-
+```ssh username@ip```
 
 _username sama ip nya sesuai yang diberikan di lms kami mwhehee_
 
