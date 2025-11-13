@@ -6,7 +6,9 @@
 ### 1.1 Akses Server
 Jadi cara akses servernya sangat mudah, hanya perlu *cmd* bawaan windows, dengan cara berikut :
 
-```ssh username@ip```
+```shell
+ssh username@ip
+```
 
 _username sama ip nya sesuai yang diberikan di lms kami mwhehee_
 
@@ -26,15 +28,17 @@ nahh kalau sudah diinstall ols dan kawannya ini, langsung saja buat akun untuk n
 ```
 bebas laah user dan passwordnya, asal inget wkwk
 
+
+> [!Tip]
+>  Oke setelah selesai itu semua, selanjutnya tinggal masuk ke panel olsnya lewat browser, gimana? ginii :
+> ```http://ip-server:7080```
+> abistu masukan aja user sama password yang udah dibuat tadi
+
+> [!Tip]
+> ohh iya, kalau mau cek web defaultnya juga udah bisa kok, pake ini :
+> ```http://ip-server:8088```
+
 ### 1.2.1 Settings Panel OLS
-Oke setelah selesai itu semua, selanjutnya tinggal masuk ke panel olsnya lewat browser, gimana? ginii :
-```http://ip-server:7080```
-
-abistu masukan aja user sama password yang udah dibuat tadi
-
-ohh iya, kalau mau cek web defaultnya juga udah bisa kok, pake ini :
-```http://ip-server:8088```
-
 setelah berhasil masuk, gaskeun kita setting setting, apa aja tuh ? nihh (btw, tiap selesai setting jangan lupa save uy):
 ### 1) Ngatur versi PHP dulu geys.
 ##### a. Di panel klik Server Configuration terus External App
@@ -69,7 +73,7 @@ Handler Name: lsphp84
 ##### b. Cari bagian index file, terus tambahin ```index.php```, ```index.html``` (biar index.php dicari dahulu baru index.html)
 
 ### 5) Buat Self-Signed SSL 
-> nah khusus ini, kita buat dulu di ssh (cmd), tapii ada harus masuk pake root dulu, jangan khawatir ikuti saja codenya
+##### _nah khusus ini, kita buat dulu di ssh (cmd), tapii ada harus masuk pake root dulu, jangan khawatir ikuti saja codenya_
 
 ```shell
 sudo mkdir /etc/ssl/private
@@ -81,7 +85,7 @@ nextnya :
 ```shell
 openssl req -x509 -newkey rsa:2048 -nodes -keyout self.key -out self.crt -days 365
 ```
-> Isi asal aja sih. terus nanti bakal punya dua file self.key dan self.crt yang tersimpan di /etc/ssl/private
+##### _Isi asal aja sih. terus nanti bakal punya dua file self.key dan self.crt yang tersimpan di_ ```/etc/ssl/private```
 
 ##### a. Sekarang ke panel OLS lagi, terus ke Listeners lalu add
 ##### b. Listener Name: SSL
