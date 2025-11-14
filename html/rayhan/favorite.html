@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanze - Favorites</title>
+    <style>
+        /* Variabel CSS untuk konsistensi */
+        :root {
+            --primary-color: rgb(149, 14, 41);
+            --secondary-color: #000;
+            --text-light: #f5f5f5;
+            --bg-dark: #1a1a1a;
+            --transition: all 0.3s ease;
+        }
+        
+        /* Reset dan gaya dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background-color: var(--bg-dark);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            padding: 1.5rem 0;
+            color: var(--text-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+        
+        nav {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            nav {
+                margin-top: 0;
+            }
+        }
+        
+        nav a {
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-toggle {
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .dropdown-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        .dropdown-toggle::after {
+            content: "▼";
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--bg-dark);
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 10px 15px;
+            color: var(--text-light);
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(149, 14, 41, 0.2);
+            color: var(--text-light);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 5px 0;
+        }
+        
+        /* Main Content Styles */
+        main {
+            padding: 2rem 0;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+        }
+        
+        .page-header h2 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .category-tab {
+            padding: 0.8rem 1.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .category-tab.active,
+        .category-tab:hover {
+            background-color: var(--primary-color);
+        }
+        
+        /* Favorites Grid */
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 480px) {
+            .favorites-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        #person-category .favorites-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .favorite-category {
+            margin-bottom: 4rem;
+        }
+        
+        .category-title {
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+        }
+        
+        .favorite-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        .favorite-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .favorite-image {
+            height: 200px;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+        
+        .favorite-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .favorite-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .favorite-content h3 {
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+            white-space: normal;
+            word-wrap: break-word;
+            width: 100%;
+        }
+        
+        .favorite-content p {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .favorite-rating {
+            display: flex;
+            color: gold;
+            margin-bottom: 1rem;
+        }
+        
+        /* Secret Person Style */
+        .secret-person {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .secret-person .favorite-image {
+            background: linear-gradient(45deg, #1a1a1a, #2a0c14);
+            position: relative;
+        }
+        
+        .secret-person .favorite-image::before {
+            content: "?";
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .secret-person .favorite-image::after {
+            content: "TOP SECRET";
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
+        }
+
+        /* Video Styles */
+        .favorite-video {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .favorite-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(149, 14, 41, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .video-play-button:hover {
+            background-color: var(--primary-color);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        /* Music Player */
+        .music-player {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.1);
+            background-color: rgb(170, 20, 50);
+        }
+        
+        .progress-container {
+            margin-top: 1.5rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+        
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        audio {
+            display: none;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--primary-color);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-light);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            .social-links {
+                justify-content: flex-start;
+            }
+        }
+        
+        .social-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            line-height: 40px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        /* Social Media Icons */
+        .social-email::before { content: "📧"; }
+        .social-instagram::before { content: "📷"; }
+        .social-youtube::before { content: "📺"; }
+        .social-tiktok::before { content: "🎵"; }
+        
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        
+        /* Untuk kategori yang disembunyikan */
+        .category-hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Hanze's Favorites</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="profil.html">Me</a>
+                
+                <!-- Dropdown Menu untuk Favorites -->
+                <div class="dropdown">
+                    <div class="dropdown-toggle">Favorite Categories</div>
+                    <div class="dropdown-menu">
+                        <a href="javascript:void(0)" class="dropdown-item" data-category="all">All Favorites</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item" data-category="movies">🎬 Movies & Series</a>
+                        <a href="javascript:void(0)" class="dropdown-item" data-category="music">🎵 Music</a>
+                        <a href="javascript:void(0)" class="dropdown-item" data-category="games">🎮 Games</a>
+                        <a href="javascript:void(0)" class="dropdown-item" data-category="books">📚 Books</a>
+                        <a href="javascript:void(0)" class="dropdown-item" data-category="food">🍕 Food</a>
+                        <a href="javascript:void(0)" class="dropdown-item" data-category="person">💖 Special Person</a>
+                        <a href="javascript:void(0)" class="dropdown-item" data-category="videos">📹 Videos</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h2 class="animate">All My Favorite Things</h2>
+                <p class="animate delay-1">You want to know more about me? Here are some of my favorite things that define who I am!</p>
+            </div>
+        </section>
+        
+        <section class="container">
+            <!-- Category Tabs -->
+            <div class="category-tabs">
+                <div class="category-tab active" data-category="all">All</div>
+                <div class="category-tab" data-category="movies">Movies & Series</div>
+                <div class="category-tab" data-category="music">Music</div>
+                <div class="category-tab" data-category="games">Games</div>
+                <div class="category-tab" data-category="books">Books</div>
+                <div class="category-tab" data-category="food">Food</div>
+                <div class="category-tab" data-category="person">Person</div>
+                <div class="category-tab" data-category="videos">Videos</div>
+            </div>
+            
+            <!-- Movies & Series -->
+            <div class="favorite-category" id="movies-category">
+                <h3 class="category-title animate">Movies & Series</h3>
+                <div class="favorites-grid">
+                    <div class="favorite-item animate delay-1">
+                        <div class="favorite-image">
+                            <img src="httyd.jpg" alt="How to Train Your Dragon movie poster">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>How to train your dragon</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>Becauseeee, I like DRAGONNNN HAHAHA ^^.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-2">
+                        <div class="favorite-image">
+                            <img src="1263996.jpg" alt="Tenki no Ko movie poster">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Tenki no ko</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>"Daripada langit biru, aku lebih mengingikanmu.. cuaca itu biarkan gila saja!"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-3">
+                        <div class="favorite-image">
+                            <img src="1460638.png" alt="Koe no Katachi movie poster">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Koe no Katachi</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>The movie is Life lessons</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Music -->
+            <div class="favorite-category" id="music-category">
+                <h3 class="category-title animate">Music</h3>
+                
+                <div class="music-player animate delay-1">
+                    <h3>Current Favorite Song</h3>
+                    <p id="currentSong">Bergema sampai selamanya - Nadhif Basalamah</p>
+                    
+                    <audio id="audioPlayer"></audio>
+                    
+                    <div class="player-controls">
+                        <button class="control-btn" id="prevBtn">⏮</button>
+                        <button class="control-btn" id="playPauseBtn">▶</button>
+                        <button class="control-btn" id="nextBtn">⏭</button>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress" id="progress"></div>
+                        </div>
+                        <div class="time-display">
+                            <span id="currentTime">0:00</span>
+                            <span id="duration">0:00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="favorites-grid">
+                    <div class="favorite-item animate delay-1">
+                        <div class="favorite-image">
+                            <img src="one.jpg" alt="ONE OK ROCK band">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>ONE OK ROCK</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>ONE OK ROCK is a Japanese rock band known for powerful songs and energetic performances, blending Japanese and English lyrics.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-2">
+                        <div class="favorite-image">
+                            <img src="nadin.jpg" alt="Nadin Amizah singer">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Nadin Amizah</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>Nadin Amizah's songs are mostly about love, self-growth, and everyday life stories, delivered with poetic and heartfelt lyrics. Her music often feels intimate, calming, and full of emotion, making listeners connect deeply with the feelings she shares.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-3">
+                        <div class="favorite-image">
+                            <img src="tenxi.jpg" alt="Tenxi artist">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Tenxi</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>Tenxi is a rising Indonesian artist whose tracks, like "Garam & Madu (Sakit Dadaku)," feature catchy, upbeat hip-dut beats but deeper lyrics that quietly convey longing and emotional conflict.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Games -->
+            <div class="favorite-category" id="games-category">
+                <h3 class="category-title animate">Games</h3>
+                <div class="favorites-grid">
+                    <div class="favorite-item animate delay-1">
+                        <div class="favorite-image">
+                            <img src="1243956.jpg" alt="Pokemon game">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Pokemon Games</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>Whatever the series, start with Nintendo DS, 3DS, Switch and more, I love pokemon. My favorite pokemon is... Garchomp</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-2">
+                        <div class="favorite-image">
+                            <img src="752070.jpg" alt="Minecraft game">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Minecraft</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>Minecraft always feels nostalgic like going back to those endless nights of building, surviving, and getting lost in a blocky world that never seems to run out of wonder.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-3">
+                        <div class="favorite-image">
+                            <img src="astfu.png" alt="astfu">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>A Space For The Unbound</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>MASTERPIECE GAME FROM INDONESIA.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Books -->
+            <div class="favorite-category" id="books-category">
+                <h3 class="category-title animate">Books</h3>
+                <div class="favorites-grid">
+                    <div class="favorite-item animate delay-1">
+                        <div class="favorite-image">📚</div>
+                        <div class="favorite-content">
+                            <h3>-</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>-.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-2">
+                        <div class="favorite-image">📚</div>
+                        <div class="favorite-content">
+                            <h3>-</h3>
+                            <div class="favorite-rating">★★★★☆</div>
+                            <p>-.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-3">
+                        <div class="favorite-image">📚</div>
+                        <div class="favorite-content">
+                            <h3>-</h3>
+                            <div class="favorite-rating">★★★★☆</div>
+                            <p>-.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Food -->
+            <div class="favorite-category" id="food-category">
+                <h3 class="category-title animate">Food</h3>
+                <div class="favorites-grid">
+                    <div class="favorite-item animate delay-1">
+                        <div class="favorite-image">
+                            <img src="mie.jpg" alt="Mie Ayam dish">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Mie Ayam</h3>
+                            <div class="favorite-rating">★★★★★★★★★★</div>
+                            <p>MIE AYAMM THE BESTTTT!!!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-2">
+                        <div class="favorite-image">
+                            <img src="nasi.jpg" alt="Nasi Padang dish">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Nasi Padang</h3>
+                            <div class="favorite-rating">★★★★★★★★★</div>
+                            <p>I love it!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-3">
+                        <div class="favorite-image">
+                            <img src="martabak.jpg" alt="Martabak Telur dish">
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Martabak Telur</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>Oh my god, special</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Person -->
+            <div class="favorite-category" id="person-category">
+                <h3 class="category-title animate">Special Person</h3>
+                <div class="favorites-grid">
+                    <div class="favorite-item secret-person animate delay-1">
+                        <div class="favorite-image">
+                            <!-- Gambar rahasia/top secret -->
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Someone Special</h3>
+                            <div class="favorite-rating">★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★</div>
+                            <p>Yups, this is special for me. But if u want now, it's "Someone who can't be mine". I wish it's just for now, and in the future it will be mine -. Aamiin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Videos -->
+            <div class="favorite-category" id="videos-category">
+                <h3 class="category-title animate">Favorite Videos</h3>
+                <div class="favorites-grid">
+                    <div class="favorite-item animate delay-1">
+                        <div class="favorite-video">
+                            <video controls>
+                                <source src="amv.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-play-button">▶</div>
+                        </div>
+                        <div class="favorite-content">
+                            <h3>AMV Typography by me</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>U know, it's old video, but gold. cuz i was a young man, 13 years old, learning After Effect. i know, it's not good at all, but it's memorable.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-2">
+                        <div class="favorite-video">
+                            <video controls>
+                                <source src="intro.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-play-button">▶</div>
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Minecraft Intro RehanFebian24</h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>Yups, it's Mine imator, i used preset, but the skin was created by me, by myselff, and the effort from me as a child it's so efforts.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item animate delay-3">
+                        <div class="favorite-video">
+                            <video controls>
+                                <source src="moskov.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-play-button">▶</div>
+                        </div>
+                        <div class="favorite-content">
+                            <h3>Moskov </h3>
+                            <div class="favorite-rating">★★★★★</div>
+                            <p>Waste my time for editing, learning, i thinks it's good, not bad at all.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About This Site</h3>
+                    <p>To show that I'm Handsome like my Mom said.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="profil.html">About Me</a></p>
+                    <p><a href="favorite.html">My Favorites</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect With Me</h3>
+                    <div class="social-links">
+                        <a href="mailto:rehanfebian24@gmail.com" class="social-link social-email" target="_blank" aria-label="Email"></a>
+                        <a href="https://www.instagram.com/rehanfebian_24/" class="social-link social-instagram" target="_blank" aria-label="Instagram"></a>
+                        <a href="https://www.youtube.com/@RehanFebian24" class="social-link social-youtube" target="_blank" aria-label="YouTube"></a>
+                        <a href="https://www.tiktok.com/@rehanfebian24" class="social-link social-tiktok" target="_blank" aria-label="TikTok"></a>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i>📧</i>
+                            <span>rehanfebian24@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i>📷</i>
+                            <span>@rehanfebian_24</span>
+                        </div>
+                        <div class="contact-item">
+                            <i>📺</i>
+                            <span>@RehanFebian24</span>
+                        </div>
+                        <div class="contact-item">
+                            <i>🎵</i>
+                            <span>@rehanfebian24</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>Copyright &copy; 2025 Hanze. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // PLAYLIST DATA - Template untuk menambah lagu
+        const playlist = [
+            {
+                title: "Terbuang Dalam Waktu - Barasuara",
+                file: "terbuang.mp3"
+            },
+            {
+                title: "Bergema Sampai Selamanya - Nadhif Basalamah",
+                file: "Bergema.mp3"
+            },
+            {
+                title: "Sampai Jadi Debu - Bandaneira",
+                file: "sampai.mp3"
+            },
+            {
+                title: "You'll Be In My Heart - Niki Cover",
+                file: "you.mp3"
+            },
+            {
+                title: "Understand - Keshi",
+                file: "understand.mp3"
+            },
+            {
+                title: "Here With Me - d4vd",
+                file: "here.mp3"
+            },
+            {
+                title: "Everything u are - Hindia",
+                file: "hindia.mp3"
+            }
+        ];
+        
+        // Music Player Functionality
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progress = document.getElementById('progress');
+        const progressBar = document.getElementById('progressBar');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        const currentSongEl = document.getElementById('currentSong');
+        
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        
+        // Load song
+        function loadSong(index) {
+            const song = playlist[index];
+            currentSongEl.textContent = song.title;
+            audioPlayer.src = song.file;
+            
+            // Reset progress
+            progress.style.width = '0%';
+            currentTimeEl.textContent = '0:00';
+            durationEl.textContent = '0:00';
+            
+            // Load metadata
+            audioPlayer.addEventListener('loadedmetadata', function() {
+                durationEl.textContent = formatTime(audioPlayer.duration);
+            }, { once: true });
+            
+            // Play the song if player was playing
+            if (isPlaying) {
+                audioPlayer.play();
+                playPauseBtn.textContent = '⏸';
+            }
+        }
+        
+        // Play/Pause functionality
+        function togglePlayPause() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playPauseBtn.textContent = '⏸';
+                isPlaying = true;
+            } else {
+                audioPlayer.pause();
+                playPauseBtn.textContent = '▶';
+                isPlaying = false;
+            }
+        }
+        
+        // Previous song
+        function prevSong() {
+            currentSongIndex--;
+            if (currentSongIndex < 0) {
+                currentSongIndex = playlist.length - 1;
+            }
+            loadSong(currentSongIndex);
+            if (isPlaying) {
+                audioPlayer.play();
+            }
+        }
+        
+        // Next song
+        function nextSong() {
+            currentSongIndex++;
+            if (currentSongIndex >= playlist.length) {
+                currentSongIndex = 0;
+            }
+            loadSong(currentSongIndex);
+            if (isPlaying) {
+                audioPlayer.play();
+            }
+        }
+        
+        // Update progress bar
+        audioPlayer.addEventListener('timeupdate', function() {
+            const currentTime = audioPlayer.currentTime;
+            const duration = audioPlayer.duration;
+            
+            // Update progress bar width
+            const progressPercent = (currentTime / duration) * 100;
+            progress.style.width = `${progressPercent}%`;
+            
+            // Update time display
+            currentTimeEl.textContent = formatTime(currentTime);
+        });
+        
+        // Seek functionality when clicking on progress bar
+        progressBar.addEventListener('click', function(e) {
+            const width = this.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audioPlayer.duration;
+            
+            audioPlayer.currentTime = (clickX / width) * duration;
+        });
+        
+        // Format time from seconds to MM:SS
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            
+            let minutes = Math.floor(seconds / 60);
+            let secs = Math.floor(seconds % 60);
+            secs = secs < 10 ? '0' + secs : secs;
+            return `${minutes}:${secs}`;
+        }
+        
+        // Reset when audio ends and play next song
+        audioPlayer.addEventListener('ended', function() {
+            nextSong();
+        });
+        
+        // Event listeners for buttons
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        prevBtn.addEventListener('click', prevSong);
+        nextBtn.addEventListener('click', nextSong);
+        
+        // Load the first song
+        loadSong(currentSongIndex);
+        
+        // Fungsi Filter Kategori
+        function filterCategory(category) {
+            const categories = ['movies', 'music', 'games', 'books', 'food', 'person', 'videos'];
+            
+            categories.forEach(cat => {
+                const categoryElement = document.getElementById(`${cat}-category`);
+                if (category === 'all' || category === cat) {
+                    categoryElement.classList.remove('category-hidden');
+                } else {
+                    categoryElement.classList.add('category-hidden');
+                }
+            });
+            
+            // Update active tab
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.category-tab[data-category="${category}"]`).classList.add('active');
+            
+            // Scroll ke bagian atas kategori
+            window.scrollTo({
+                top: document.querySelector('.category-tabs').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Animasi saat scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(element => {
+                element.style.opacity = 0;
+                observer.observe(element);
+            });
+            
+            // Tab functionality
+            const tabs = document.querySelectorAll('.category-tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const category = tab.getAttribute('data-category');
+                    filterCategory(category);
+                });
+            });
+            
+            // Dropdown menu functionality
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    filterCategory(category);
+                });
+            });
+            
+            // Video play button functionality
+            const videoPlayButtons = document.querySelectorAll('.video-play-button');
+            const videos = document.querySelectorAll('.favorite-video video');
+            
+            videoPlayButtons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    const video = videos[index];
+                    if (video.paused) {
+                        video.play();
+                        button.style.display = 'none';
+                    } else {
+                        video.pause();
+                        button.style.display = 'flex';
+                    }
+                });
+            });
+            
+            // Show play button when video is paused
+            videos.forEach(video => {
+                video.addEventListener('pause', function() {
+                    this.parentElement.querySelector('.video-play-button').style.display = 'flex';
+                });
+                
+                video.addEventListener('play', function() {
+                    this.parentElement.querySelector('.video-play-button').style.display = 'none';
+                });
+            });
+            
+            // Mobile menu functionality
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            if (window.innerWidth < 768) {
+                dropdownToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const dropdownMenu = this.nextElementSibling;
+                    dropdownMenu.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
