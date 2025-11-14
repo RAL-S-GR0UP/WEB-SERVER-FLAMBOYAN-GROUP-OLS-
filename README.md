@@ -2,6 +2,14 @@
 > [!NOTE]
 > _Yaah kami dari kelompok 6 diberi tugas ntuk membuat web server. Saat ini kami kelas 11 jurusan TJKT, btw mapel KKTKJ. :D_
 
+## Perkenalan Kelompok
+Tak kenal maka tak sayang, sudah kenal tapi ga sayang sayangg wakkwak. okey kami kelompok **Flamboyan** beranggotakan 3 orang :
+
+- Mochammad Rayhan Febian
+- Alfareza Heryana Putra
+- Latif Sahrul Siddiq
+
+# A. Pembahasan
 ## 1. Mengakses Server, Menginstall Web Server (OLS), Uji Coba
 ### 1.1 Akses Server
 Jadi cara akses servernya sangat mudah, hanya perlu *cmd* bawaan windows, dengan cara berikut :
