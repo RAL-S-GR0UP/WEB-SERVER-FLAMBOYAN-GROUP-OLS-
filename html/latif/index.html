@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Latip | Web Dev & Football Lover</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="light-mode">
+
+  <!-- Dark Mode Toggle -->
+  <div class="mode-toggle">
+    <i class="fas fa-moon"></i>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero" data-aos="fade-down">
+    <div class="container">
+      <div class="profile">
+        <img src="latip.jpeg" alt="Foto Profil" class="profile-img">
+        <div class="badge">?</div>
+      </div>
+      <h1>Latip Sahrul sidik</h1>
+      <p class="tagline">Web Developer | Football Enthusiast</p>
+      <p class="location"><i class="fas fa-map-marker-alt"></i> Soreang, Indonesia</p>
+      <div class="social-links">
+        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.instagram.com/ltiffsdik?igsh=a3Z2ajU1MzB4MXZs" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="mailto:sidikarul5482@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="wave"></div>
+  </header>
+
+  <!-- About -->
+  <section class="about" data-aos="fade-up">
+    <div class="container">
+      <h2>Tentang Saya</h2>
+      <p>
+        Saya seorang <strong>web developer</strong> yang passionate dengan teknologi dan <strong>sepak bola</strong>. 
+        Fokus pada React, Node.js, dan UI/UX. Supporter setia <strong>Persib Bandung</strong> sejak lahir.
+      </p>
+      <p>
+        Di luar coding, saya suka nonton bola, main futsal tiap Jumat, dan koleksi jersey vintage.
+      </p>
+      <div class="hobby">
+        <span>? Main Futsal</span>
+        <span>?? Main FF</span>
+        <span>?? Efootball</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="skills" data-aos="fade-up" data-aos-delay="200">
+    <div class="container">
+      <h2>Keahlian</h2>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <i class="fab fa-html5"></i>
+          <p>HTML/CSS</p>
+        </div>
+        <div class="skill-card">
+          <i class="fab fa-js"></i>
+          <p>JavaScript</p>
+        </div>
+        <div class="skill-card">
+          <i class="fab fa-react"></i>
+          <p>React.js</p>
+        </div>
+        <div class="skill-card">
+          <i class="fab fa-node-js"></i>
+          <p>Node.js</p>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-futbol"></i>
+          <p>Football Analyst</p>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-palette"></i>
+          <p>Tailwind/Figma</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" data-aos="fade-up" data-aos-delay="300">
+    <div class="container">
+      <h2>Kontak Saya</h2>
+      <form id="contactForm">
+        <input type="text" placeholder="Nama" required />
+        <input type="email" placeholder="Email" required />
+        <textarea placeholder="Pesan Anda..." required></textarea>
+        <button type="submit">Kirim Pesan <i class="fas fa-paper-plane"></i></button>
+      </form>
+      <p class="success-msg" id="successMsg"></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Latip Sahrul Sidik. Dibuat dengan <i class="fas fa-code"></i> + <i class="fas fa-futbol"></i></p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800 });
+
+    // Dark Mode
+    const toggle = document.querySelector('.mode-toggle');
+    const body = document.body;
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      toggle.innerHTML = body.classList.contains('dark-mode') 
+        ? '<i class="fas fa-sun"></i>' 
+        : '<i class="fas fa-moon"></i>';
+    });
+
+    // Form Submit (Demo)
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('successMsg').textContent = 'Pesan terkirim! ?';
+      this.reset();
+      setTimeout(() => document.getElementById('successMsg').textContent = '', 3000);
+    });
+  </script>
+</body>
+</html>
