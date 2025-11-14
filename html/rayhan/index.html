@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanze - Home</title>
+    <style>
+        /* Variabel CSS untuk konsistensi */
+        :root {
+            --primary-color: rgb(149, 14, 41);
+            --secondary-color: #000;
+            --text-light: #f5f5f5;
+            --bg-dark: #1a1a1a;
+            --transition: all 0.3s ease;
+        }
+        
+        /* Reset dan gaya dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background-color: var(--bg-dark);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            padding: 1.5rem 0;
+            color: var(--text-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+        
+        nav {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            nav {
+                margin-top: 0;
+            }
+        }
+        
+        nav a {
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-toggle {
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .dropdown-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        .dropdown-toggle::after {
+            content: "▼";
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--bg-dark);
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 10px 15px;
+            color: var(--text-light);
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(149, 14, 41, 0.2);
+            color: var(--text-light);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 5px 0;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+            background-size: cover;
+            background-position: center;
+            padding: 2rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: var(--transition);
+            margin: 0 10px 10px;
+        }
+        
+        @media (max-width: 480px) {
+            .cta-button {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+                max-width: 250px;
+            }
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button.outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Recent Projects - Kosong untuk sekarang */
+        .projects {
+            padding: 5rem 0;
+            background-color: rgba(149, 14, 41, 0.05);
+            display: none; /* Sembunyikan section untuk sementara */
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--primary-color);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-light);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            .social-links {
+                justify-content: flex-start;
+            }
+        }
+        
+        .social-link {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            line-height: 50px;
+            text-align: center;
+            transition: var(--transition);
+            font-size: 1.5rem;
+            position: relative;
+        }
+        
+        .social-link:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        /* Social Media Icons dengan Logo */
+        .social-email::before { content: "📧"; }
+        .social-instagram::before { content: "📷"; }
+        .social-youtube::before { content: "📺"; }
+        .social-tiktok::before { content: "🎵"; }
+        
+        /* Tooltip untuk social links */
+        .social-link::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+        
+        .social-link:hover::after {
+            opacity: 1;
+            visibility: visible;
+            bottom: -35px;
+        }
+        
+        /* Contact Info Styles */
+        .contact-info {
+            margin-top: 1rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Hanze's Website</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="profil.html">Me</a>
+                
+                <!-- Dropdown Menu untuk Favorites -->
+                <div class="dropdown">
+                    <div class="dropdown-toggle">Favorite Categories</div>
+                    <div class="dropdown-menu">
+                        <a href="favorite.html" class="dropdown-item">All Favorites</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="favorite.html#movies-category" class="dropdown-item">🎬 Movies & Series</a>
+                        <a href="favorite.html#music-category" class="dropdown-item">🎵 Music</a>
+                        <a href="favorite.html#games-category" class="dropdown-item">🎮 Games</a>
+                        <a href="favorite.html#books-category" class="dropdown-item">📚 Books</a>
+                        <a href="favorite.html#food-category" class="dropdown-item">🍕 Food</a>
+                        <a href="favorite.html#person-category" class="dropdown-item">💖 Special Person</a>
+                        <a href="favorite.html#videos-category" class="dropdown-item">📹 Videos</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2 class="animate">Hello, I'm Hanze!</h2>
+                <p class="animate delay-1">Welcome to my personal website. Here you can learn more about me, my interests, and my projects. Hope you enjoy your stay!</p>
+                <div class="animate delay-2">
+                    <a href="profil.html" class="cta-button">Get to Know Me</a>
+                    <a href="favorite.html" class="cta-button outline">See My Favorites</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title animate">What You'll Find Here</h2>
+                <div class="features-grid">
+                    <div class="feature-card animate delay-1">
+                        <div class="feature-icon">👤</div>
+                        <h3>About Me</h3>
+                        <p>Learn about my background, skills, and experiences. Discover what makes me unique and how I can contribute.</p>
+                    </div>
+                    
+                    <div class="feature-card animate delay-2">
+                        <div class="feature-icon">❤️</div>
+                        <h3>My Favorites</h3>
+                        <p>Explore my interests, hobbies, and passions. From technology to music, see what I love in my free time.</p>
+                    </div>
+                    
+                    <div class="feature-card animate delay-3">
+                        <div class="feature-icon">💼</div>
+                        <h3>My Projects</h3>
+                        <p>Check out my latest work and creative projects. See examples of what I've built and what I'm capable of.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Recent Projects Section (Kosong untuk sekarang) -->
+        <section class="projects">
+            <div class="container">
+                <h2 class="section-title">Recent Projects</h2>
+                <!-- Konten akan ditambahkan di masa depan -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About This Site</h3>
+                    <p>To show that I'm Handsome like my Mom said.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="profil.html">About Me</a></p>
+                    <p><a href="favorite.html">My Favorites</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect With Me</h3>
+                    <div class="social-links">
+                        <a href="mailto:rehanfebian24@gmail.com" class="social-link social-email" data-tooltip="Email" target="_blank" aria-label="Email"></a>
+                        <a href="https://www.instagram.com/rehanfebian_24/" class="social-link social-instagram" data-tooltip="Instagram" target="_blank" aria-label="Instagram"></a>
+                        <a href="https://www.youtube.com/@RehanFebian24" class="social-link social-youtube" data-tooltip="YouTube" target="_blank" aria-label="YouTube"></a>
+                        <a href="https://www.tiktok.com/@rehanfebian24" class="social-link social-tiktok" data-tooltip="TikTok" target="_blank" aria-label="TikTok"></a>
+                    </div>
+                </div>
+            </div>
+            
+            <p>Copyright &copy; 2025 Hanze. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
