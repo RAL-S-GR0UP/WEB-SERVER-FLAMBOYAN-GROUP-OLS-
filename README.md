@@ -158,15 +158,20 @@ Alhamdulillah kendala minim, tapi tetap ada beberapa:
 | 3  | Port 80/443 sudah dipake             | Matikan service lain atau ganti port dulu   |
 | 4  | HTTPS error sertifikat               | Pakai self-signed dulu buat testing         |
 
+
 ## C. Kesimpulan ✨
 Akhirnya kelompok Flamboyan berhasil membuat web server menggunakan **OpenLiteSpeed** via VPS dari nol sampai bisa diakses via HTTP & HTTPS! 🎉  
 Prosesnya seru, banyak belajar tentang SSH, instalasi package, konfigurasi panel, sampai upload file pakai WinSCP. Walaupun ada sedikit kendala, semua teratasi dengan sabar dan googling bareng-bareng.
 
 OpenLiteSpeed ternyata **super cepat**, **ringan**, dan **ramah pemula** berkat panel webnya. Cocok banget buat pelajar kayak kami yang baru belajar server. Tema demonic website kami juga jadi bikin orang takut tapi keren abis 😈🔥
 
-Terima kasih buat guru, temen-temen, GROK, dan tentunya kelompok Flamboyan yang solid abis!  
+Terima kasih buat guru, temen-temen, GROK, dan tentunya kelompok Flamboyan cihuy
 
-Semoga nilai kita 100 ya Allah 🤲
+Semoga nilai kita maksimal ya Allah 🤲
+
+## 🎬 Dokumentasi Video Pengerjaan
+[![Thumbnail Video Pengerjaan](https://img.youtube.com/vi/zErzzyqL34E/0.jpg)](https://youtu.be/zErzzyqL34E)
 
 **SELESAI DENGAN SIGMA** 🏆🔥
+
 ~ Kelompok 6 - Flamboyan - XI TJKT ~
