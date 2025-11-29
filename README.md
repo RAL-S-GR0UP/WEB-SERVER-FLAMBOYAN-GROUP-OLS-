@@ -169,7 +169,7 @@ Terima kasih buat guru, temen-temen, GROK, dan tentunya kelompok Flamboyan cihuy
 
 Semoga nilai kita maksimal ya Allah 🤲
 
-## 🎬 Dokumentasi Video Pengerjaan
+## D. 🎬 Dokumentasi Video Pengerjaan
 [![Thumbnail Video Pengerjaan](https://img.youtube.com/vi/zErzzyqL34E/0.jpg)](https://youtu.be/zErzzyqL34E)
 
 **SELESAI DENGAN SIGMA** 🏆🔥
